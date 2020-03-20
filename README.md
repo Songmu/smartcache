@@ -24,6 +24,8 @@ ca := smartcache.New(expire, softExpire, func(ctx context.Context) (interface{},
     val, err := genCache(ctx)
     return val, err
 })
+
+val, err := ca.Get(context.Background())
 ```
 
 ## Description
