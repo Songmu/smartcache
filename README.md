@@ -11,15 +11,24 @@ smartcache
 [license]: https://github.com/Songmu/smartcache/blob/master/LICENSE
 [godoc]: https://godoc.org/github.com/Songmu/smartcache
 
-smartcache short description
+The smartcache realizes smart in memory cache generation to minimize process blocks by using soft expire limit
 
 ## Synopsis
 
 ```go
-// simple usage here
+var (
+    expire     = 5*time.Minute
+    softExpire = 1*time.Minute
+)
+ca := smartcache.New(expire, softExpire, func(ctx context.Context) (interface{}, error) {
+    val, err := genCache(ctx)
+    return val, err
+})
 ```
 
 ## Description
+
+In in-memory cache generation, there are problems, for example, thundering herd problems, blocking processing when regenerating or etc., but smartcache avoids them by setting a soft expire limit.
 
 ## Installation
 
