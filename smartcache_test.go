@@ -67,7 +67,7 @@ func TestCache_Get(t *testing.T) {
 	})
 
 	t.Run("wait for internal value update", func(t *testing.T) {
-		time.Sleep(55 * time.Millisecond) // use real time.Sleep for waiting cache update
+		time.Sleep(80 * time.Millisecond) // use real time.Sleep for waiting cache update
 		v, err := ca.Get(context.Background())
 		if err != nil {
 			t.Errorf("error should be nil, but: %s", err)
