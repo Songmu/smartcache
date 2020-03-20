@@ -1,0 +1,4 @@
+github.com/Songmu/flextime v0.0.6 h1:q9uTNwKY014E0AmCGOFt+0AaI5OXRty8gAalRyXdn9c=
+github.com/Songmu/flextime v0.0.6/go.mod h1:ofUSZ/qj7f1BfQQ6rEH4ovewJ0SZmLOjBF1xa8iE87Q=
+golang.org/x/sync v0.0.0-20200317015054-43a5402ce75a h1:WXEvlFVvvGxCJLG6REjsT03iWnKLEWinaScsxF2Vm2o=
+golang.org/x/sync v0.0.0-20200317015054-43a5402ce75a/go.mod h1:RxMgew5VJxzue5/jJTE5uejpjVlOe/izrB70Jof72aM=
