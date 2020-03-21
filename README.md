@@ -30,7 +30,13 @@ val, err := ca.Get(context.Background())
 
 ## Description
 
-In in-memory cache generation, there are problems, for example, thundering herd problems, blocking processing when regenerating or etc., but smartcache avoids them by setting a soft expire limit.
+The smartcache is an in-memory cache library with avoiding the following problems.
+
+- thundering herd
+- block processing when regenerating
+- etc.
+
+To avoid the above problems, you can set a soft expire limit to Cache. The soft expired cached value is internally pre-warmed by a single goroutine and the value is replaced seamlessly.
 
 ## Installation
 
