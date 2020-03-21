@@ -12,7 +12,7 @@ import (
 
 func TestCache_Get(t *testing.T) {
 	now := flextime.Now()
-	defer flextime.Fix(now)()
+	defer flextime.Set(now)()
 
 	var counter int
 	ca := smartcache.New(10*time.Second, time.Second, func(ctx context.Context) (interface{}, error) {
@@ -79,7 +79,35 @@ func TestCache_Get(t *testing.T) {
 
 	t.Run("hard expire", func(t *testing.T) {
 		flextime.Sleep(11 * time.Second)
-		v, err := ca.Get(context.Background())
+		var (
+			v   interface{}
+			err error
+		)
+		go func() {
+			v, err = ca.Get(context.Background())
+		}()
+		time.Sleep(50 * time.Millisecond)
+		// check the concurrent cache updates won't conflict
+		var (
+			wg   = sync.WaitGroup{}
+			para = 10
+		)
+		wg.Add(para)
+		for i := 0; i < para; i++ {
+			go func() {
+				defer wg.Done()
+				ca.Get(context.Background())
+			}()
+		}
+		wg.Wait()
+		if err != nil {
+			t.Errorf("error should be nil, but: %s", err)
+		}
+		if v.(int) != 3 {
+			t.Errorf("value should be 3, but %v", v)
+		}
+
+		v, err = ca.Get(context.Background())
 		if err != nil {
 			t.Errorf("error should be nil, but: %s", err)
 		}
